@@ -37,7 +37,7 @@ class _ModuleLoginState extends State<LoginView> {
         const Text("Password"),
         _inputPassword(),
         _btnPageInitial(context),
-        _btnPageRegister()
+        _btnPageRegister(context)
       ]),
     ));
   }
@@ -59,9 +59,11 @@ Widget _inputPassword() {
       ));
 }
 
-Widget _btnPageRegister() {
+Widget _btnPageRegister(BuildContext context) {
   return TextButton(
-    onPressed: () {},
+    onPressed: () {
+       Navigator.pushNamed(context, "/register");
+    },
     child: const Text('Crear Cuenta',
         style: TextStyle(decoration: TextDecoration.underline)),
   );

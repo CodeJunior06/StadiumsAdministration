@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/utils.dart';
+
 class LoginModel {
   Future<User?> signIn(
       final String email, final String password, BuildContext context) async {
@@ -16,7 +18,7 @@ class LoginModel {
           .user;
     } on FirebaseAuthException catch (e) {
       print(e.message);
-
+      Utils.showSnackbar(e.message);
       /*    authProblems errorType;
       if (Platform.isAndroid) {
         switch (e.message) {
