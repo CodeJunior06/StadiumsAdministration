@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "339144965021",
+    "project_id": "stadiumadministration",
+    "storage_bucket": "stadiumadministration.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339144965021:android:1d77609a6dc69225cecd74",
+        "android_client_info": {
+          "package_name": "com.example.stadiums_administration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339144965021-39qj2lgcqp2goinecvo9uul27gif55td.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkdXFUTUAI7af1of4DrTpXoExvDpFoA0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339144965021-39qj2lgcqp2goinecvo9uul27gif55td.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
