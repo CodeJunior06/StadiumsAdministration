@@ -7,8 +7,8 @@ class LoginView extends StatefulWidget {
   State<StatefulWidget> createState() => _ModuleLoginState();
 }
 
-late var emailOrUserController = TextEditingController();
-late var passwordController = TextEditingController();
+var emailOrUserController = TextEditingController();
+var passwordController = TextEditingController();
 var loginViewModel = LoginViewModel();
 
 class _ModuleLoginState extends State<LoginView> {
@@ -62,7 +62,7 @@ Widget _inputPassword() {
 Widget _btnPageRegister(BuildContext context) {
   return TextButton(
     onPressed: () {
-       Navigator.pushNamed(context, "/register");
+      Navigator.pushNamed(context, "/register");
     },
     child: const Text('Crear Cuenta',
         style: TextStyle(decoration: TextDecoration.underline)),
@@ -78,10 +78,13 @@ Widget _btnPageInitial(BuildContext context) {
               emailOrUserController.text.trim().toString(),
               passwordController.text.trim().toString(),
               context);
-          if (!rta!) {
-            toast();
-          } else {
-            Navigator.popAndPushNamed(context, "/home");
+
+          if (rta != null) {
+            if (!rta) {
+              toast();
+            } else {
+              Navigator.popAndPushNamed(context, "/home");
+            }
           }
         },
         child: const Text('INGRESAR', textScaleFactor: 1.3),

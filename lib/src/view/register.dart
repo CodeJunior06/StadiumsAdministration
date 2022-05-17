@@ -116,32 +116,24 @@ class _ModuleRegisterState extends State<RegisterView> {
             ],
           ),
         ]),
-        SizedBox(height:20),
-        Card(
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(20),
-            onTap: () {
-              setState(() {
-                image != null
-                    ? Image?.file(image!, height: 250, width: 250)
-                    : Image.asset("assets/splash.png", width: 250, height: 250);
-              });
-            },
-            child: Container(height: 250, width: 250),
-          ),
-        ),
+        SizedBox(height: 20),
+        Column(children: [
+          image != null
+              ? Image?.file(image!, height: 250, width: 250)
+              : Image.asset("assets/person_null.jpg", width: 250, height: 250),
+          IconButton(
+              onPressed: () => pickImage(ImageSource.gallery),
+              icon: Icon(Icons.add_a_photo_rounded))
+        ]),
+        SizedBox(height: 20),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-          _btnRegresar(context),
-          const SizedBox(width: 10.0),
-          _buttonRegisterNewUser(context)
-        ])
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _btnRegresar(context),
+              const SizedBox(width: 10.0),
+              _buttonRegisterNewUser(context)
+            ])
       ]),
     )));
   }
