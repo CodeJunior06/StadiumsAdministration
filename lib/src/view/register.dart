@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
 import 'package:image_picker/image_picker.dart';
+import 'package:stadiums_administration/src/routes/route.dart';
 import 'package:stadiums_administration/viewModel/register_view_model.dart';
 
 class RegisterView extends StatefulWidget {
@@ -11,10 +12,10 @@ class RegisterView extends StatefulWidget {
   State<StatefulWidget> createState() => _ModuleRegisterState();
 }
 
-late var emailController = TextEditingController();
-late var passwordController = TextEditingController();
-late var nameController = TextEditingController();
-late var userController = TextEditingController();
+var emailController = TextEditingController();
+var passwordController = TextEditingController();
+var nameController = TextEditingController();
+var userController = TextEditingController();
 
 class _ModuleRegisterState extends State<RegisterView> {
   File? image;
@@ -57,7 +58,7 @@ class _ModuleRegisterState extends State<RegisterView> {
     return Scaffold(
         body: Center(
             child: Container(
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Text("CREATE ACCOUNT",
             style: TextStyle(
@@ -76,7 +77,7 @@ class _ModuleRegisterState extends State<RegisterView> {
           Row(
             children: const [
               SizedBox(width: 5.0),
-              const Text("Name:", style: TextStyle(fontSize: 17.0)),
+              Text("Name:", style: TextStyle(fontSize: 17.0)),
             ],
           ),
           _inputName(),
@@ -85,7 +86,7 @@ class _ModuleRegisterState extends State<RegisterView> {
           Row(
             children: const [
               SizedBox(width: 5.0),
-              const Text("User:", style: TextStyle(fontSize: 17.0)),
+               Text("User:", style: TextStyle(fontSize: 17.0)),
             ],
           ),
           _inputUser()
@@ -94,7 +95,7 @@ class _ModuleRegisterState extends State<RegisterView> {
           Row(
             children: const [
               SizedBox(width: 5.0),
-              const Text("Email:", style: TextStyle(fontSize: 17.0)),
+               Text("Email:", style: TextStyle(fontSize: 17.0)),
             ],
           ),
           _inputEmail()
@@ -116,16 +117,16 @@ class _ModuleRegisterState extends State<RegisterView> {
             ],
           ),
         ]),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Column(children: [
           image != null
               ? Image?.file(image!, height: 250, width: 250)
               : Image.asset("assets/person_null.jpg", width: 250, height: 250),
           IconButton(
               onPressed: () => pickImage(ImageSource.gallery),
-              icon: Icon(Icons.add_a_photo_rounded))
+              icon: const Icon(Icons.add_a_photo_rounded))
         ]),
-        SizedBox(height: 20),
+       const SizedBox(height: 20),
         Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -142,7 +143,7 @@ class _ModuleRegisterState extends State<RegisterView> {
 Widget _btnRegresar(BuildContext context) {
   return TextButton(
     onPressed: () {
-      Navigator.pushNamed(context, "/register");
+      Navigator.pushNamed(context, Routes.LOGIN);
     },
     child: const Text('Crear Cuenta',
         style: TextStyle(decoration: TextDecoration.underline)),
@@ -151,12 +152,15 @@ Widget _btnRegresar(BuildContext context) {
 
 Widget _buttonRegisterNewUser(BuildContext context) {
   return Container(
-      margin: EdgeInsets.all(25),
+      margin: const EdgeInsets.all(25),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          var validResponse = registerViewModel
+            
+        },
         child: const Text('REGISTRAR', textScaleFactor: 1.3),
         style: ElevatedButton.styleFrom(
-            shape: StadiumBorder(),
+            shape: const StadiumBorder(),
             padding: const EdgeInsets.only(
                 left: 40.0, right: 40.0, top: 22.0, bottom: 22.0)),
       ));
@@ -164,7 +168,7 @@ Widget _buttonRegisterNewUser(BuildContext context) {
 
 Widget _inputName() {
   return Container(
-      margin: EdgeInsets.only(top: 5.0, bottom: 20.0),
+      margin: const EdgeInsets.only(top: 5.0, bottom: 20.0),
       child: TextField(
         controller: nameController,
         decoration: InputDecoration(
@@ -180,7 +184,7 @@ Widget _inputName() {
 
 Widget _inputUser() {
   return Container(
-      margin: EdgeInsets.only(top: 5.0, bottom: 20.0),
+      margin: const EdgeInsets.only(top: 5.0, bottom: 20.0),
       child: TextField(
         controller: userController,
         decoration: InputDecoration(
@@ -196,7 +200,7 @@ Widget _inputUser() {
 
 Widget _inputEmail() {
   return Container(
-      margin: EdgeInsets.only(top: 5.0, bottom: 20.0),
+      margin: const EdgeInsets.only(top: 5.0, bottom: 20.0),
       child: TextField(
         controller: emailController,
         decoration: InputDecoration(
@@ -212,7 +216,7 @@ Widget _inputEmail() {
 
 Widget _inputPassword() {
   return Container(
-      margin: EdgeInsets.only(top: 5.0, bottom: 20.0),
+      margin: const EdgeInsets.only(top: 5.0, bottom: 20.0),
       child: TextField(
         controller: passwordController,
         decoration: InputDecoration(

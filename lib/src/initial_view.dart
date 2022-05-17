@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:stadiums_administration/src/routes/app_routes.dart';
 import 'package:stadiums_administration/src/view/home.dart';
 import 'package:stadiums_administration/src/view/login.dart';
-import 'package:stadiums_administration/src/view/register.dart';
 
 import '../utils/utils.dart';
 
@@ -15,11 +15,7 @@ class InitialPageView extends StatelessWidget {
       scaffoldMessengerKey: Utils.messengerKey,
         navigatorKey: navigatorKey,
         title: 'Material App',
-        routes: <String, WidgetBuilder>{
-          '/register' :((context) => RegisterView()),
-          '/home': ((context) => HomePageView()),
-          '/login' : ((context) => LoginView()),
-        },
+        routes: getAppRoutes(),
         home: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
@@ -28,7 +24,7 @@ class InitialPageView extends StatelessWidget {
             } else if (snapshot.hasError) {
               return Center(child: Text("ERROR"));
             } else if (snapshot.hasData) {
-              return HomePageView();
+              return HomeView();
             } else {
               return LoginView();
             }

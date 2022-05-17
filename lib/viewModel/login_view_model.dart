@@ -1,28 +1,27 @@
 import 'package:flutter/cupertino.dart';
-import 'package:stadiums_administration/model/login_model.dart';
+import 'package:stadiums_administration/domain/models/login_model.dart';
+import 'package:stadiums_administration/src/view/login.dart';
+import 'package:stadiums_administration/utils/message.dart';
 
 class LoginViewModel {
   late LoginModel loginModel;
-  // ignore: unused_element
-  bool _validateEmail(String email) {
-    bool emailValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email);
-    return emailValid;
-  }
+  late String? rta;
 
-  bool? accessLogin(String emailOrUser, String password, BuildContext context) {
+  String? accessLogin(String emailOrUser, String password, BuildContext context,CollBack a) {
     if (emailOrUser.isEmpty || password.isEmpty) {
-      return false;
+      rta=  Errors.PASSWORD_OR_EMAIL_EMPTY;
     } else {
       loginModel = LoginModel();
-      loginModel.signIn(emailOrUser, password, context).then((value) {
-        if (value != null) {
-          return false;
-        } else {
-          return true;
-        }
-      });
+      loginModel.signIn(emailOrUser, password, context).then((value) => rta = value).whenComplete(() => a.responseMessage(rta) ) ;
+    }
+    return rta;
+  }
+
+  bool validResponse(String response) {
+    if(identical(response, Success.SUCCESS_LOGIN) ){
+      return true;
+    }else{
+      return false;
     }
   }
 }

@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class HomePageView extends StatefulWidget {
+class HomeView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ModuleHomeState();
 }
 
-class _ModuleHomeState extends State<HomePageView> {
+class _ModuleHomeState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -20,7 +20,7 @@ class _ModuleHomeState extends State<HomePageView> {
               decoration:
                   InputDecoration(suffixIcon: Icon(Icons.search_rounded)),
             ),
-            icon: Icon((Icons.manage_search_outlined)),
+            icon:const Icon((Icons.manage_search_outlined)),
           ),
           actions: [
             PopupMenuButton<int>(
