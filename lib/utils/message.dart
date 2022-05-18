@@ -11,12 +11,18 @@ abstract class Errors {
 
   static const String ERROR_NETWORKFAILED = "NetworkError";
 
-  static const String PASSWORD_OR_EMAIL_EMPTY =
-      "Field password or email is empty";
+  static const String PASSWORD_OR_EMAIL_EMPTY = "Field password or email is empty";
+
+  static const String ERROR_SUBMITPHOTO ="Error Al subir la foto";
 }
 
 abstract class Success {
+  
   static const String SUCCESS_LOGIN = "Login valid";
 
-  static const String SUCCESS_REGISTER = "Login valid";
+  static const String SUCCESS_REGISTER = "Register Auth valid";
+
+  static const String SUCCESS_SUBMIT_PHOTO = "Submit photo valid";
+
+  static const String SUCCESS_REGISTER_FIRESTORE = "Register Complete Valid";
 }

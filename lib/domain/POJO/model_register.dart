@@ -10,4 +10,17 @@ class RegisterUser {
 
   RegisterUser(
       this.id, this.name, this.user, this.email, this.password, this.urlImage);
+
+
+    Map<String, Object> toJSON() {
+      return {
+        "id": id!,
+        "name": name!,
+        "user": user!,
+        "email": email!,
+        "password": password!,
+        "urlImage": urlImage!
+      };
+    }
+
 }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:image_picker/image_picker.dart';
 import 'package:stadiums_administration/src/routes/route.dart';
+import 'package:stadiums_administration/src/view/login.dart';
+import 'package:stadiums_administration/utils/utils.dart';
 import 'package:stadiums_administration/viewModel/register_view_model.dart';
 
 class RegisterView extends StatefulWidget {
@@ -16,14 +18,14 @@ late TextEditingController nameController;
 late TextEditingController userController;
 final formKey = GlobalKey<FormState>();
 
-class _ModuleRegisterState extends State<RegisterView> {
+class _ModuleRegisterState extends State<RegisterView> implements CollBack{
   RegisterViewModel registerViewModel = RegisterViewModel();
   final FocusNode myFocusNode = FocusNode();
   File? image;
 
   @override
   void setState(VoidCallback fn) {
-    this.image = image;
+    // TODO: implement setState
     super.setState(fn);
   }
 
@@ -46,7 +48,7 @@ class _ModuleRegisterState extends State<RegisterView> {
     super.initState();
   }
 
-  Future pickImage(ImageSource source) async {
+/* Future pickImage(ImageSource source) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
@@ -59,6 +61,9 @@ class _ModuleRegisterState extends State<RegisterView> {
       print(e);
     }
   }
+  */ 
+  var imageCurrent;
+  late CollBack onchangedCallback = this;
 
   @override
   Widget build(BuildContext context) {
@@ -139,12 +144,14 @@ class _ModuleRegisterState extends State<RegisterView> {
                                   width: 250, height: 250),
                           IconButton(
                             onPressed: () {
-                              var a = registerViewModel
+                                setState(() {
+                                   registerViewModel
                                   .pickImage(ImageSource.gallery)
                                   .then((value) {
-                                image = File(value!.path);
+                                imageCurrent = File(value!.path);
                                 registerViewModel.saveImage(value);
-                              }).whenComplete(() => "");
+                                }).whenComplete(() => setState(() {image = imageCurrent;}));
+                              });
                             },
                             icon: const Icon(Icons.add_a_photo_rounded),
                             iconSize: 20.0,
@@ -157,17 +164,23 @@ class _ModuleRegisterState extends State<RegisterView> {
                             children: [
                               _btnRegresar(context),
                               const SizedBox(width: 10.0),
-                              _buttonRegisterNewUser(context, registerViewModel)
+                              _buttonRegisterNewUser(context, registerViewModel,onchangedCallback)
                             ])
                       ]),
                 ))));
+  }
+  
+  @override
+  responseMessage(String? rta) {
+    if(rta == null) return;
+    Utils.toast(rta);
   }
 }
 
 Widget _btnRegresar(BuildContext context) {
   return TextButton(
     onPressed: () {
-      Navigator.pushNamed(context, Routes.LOGIN);
+      Navigator.popAndPushNamed(context, Routes.LOGIN);
     },
     child: const Text('Crear Cuenta',
         style: TextStyle(decoration: TextDecoration.underline)),
@@ -175,7 +188,7 @@ Widget _btnRegresar(BuildContext context) {
 }
 
 Widget _buttonRegisterNewUser(
-    BuildContext context, RegisterViewModel registerModelView) {
+    BuildContext context, RegisterViewModel registerModelView,CollBack onchangedCallback) {
   return Container(
       margin: const EdgeInsets.all(25),
       child: ElevatedButton(
@@ -188,10 +201,10 @@ Widget _buttonRegisterNewUser(
               emailController.text.toString(),
               passwordController.text.toString()
             ];
-            var validResponse = registerModelView.validRegisterData(fields);
+            var validResponse = registerModelView.validRegisterData(fields,onchangedCallback);
           }
         },
-        child: const Text('REGISTRAR', textScaleFactor: 1.3),
+        child: Text('REGISTRAR', textScaleFactor: 1.3),
         style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
             padding: const EdgeInsets.only(

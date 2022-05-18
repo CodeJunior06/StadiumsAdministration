@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stadiums_administration/src/routes/route.dart';
+import 'package:stadiums_administration/utils/utils.dart';
 import 'package:stadiums_administration/viewModel/login_view_model.dart';
 
 class LoginView extends StatefulWidget{
@@ -56,7 +57,8 @@ class _ModuleLoginState extends State<LoginView> implements CollBack {
   @override
   responseMessage(String? rta) {
    print("RESPONSE ASYNC "+rta!);
-   toast(rta);
+   Utils.toast(rta);
+   
   }
   
 }
@@ -103,10 +105,7 @@ Widget _btnPageInitial(BuildContext context,CollBack onchangedCallback) {
             var response = loginViewModel.validResponse(validResponse);
             if (response) {
               Navigator.pushNamed(context, Routes.HOME);
-            } else {
-              //toast(validResponse);
-         
-            }
+            } 
           }
         },
         child: const Text('INGRESAR', textScaleFactor: 1.3),
@@ -115,14 +114,6 @@ Widget _btnPageInitial(BuildContext context,CollBack onchangedCallback) {
             padding: const EdgeInsets.only(
                 left: 40.0, right: 40.0, top: 22.0, bottom: 22.0)),
       ));
-}
-
-void toast(String message) {
-  Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      fontSize: 15,
-      backgroundColor: Colors.red);
 }
 
 Widget _inputUserOrEmail() {

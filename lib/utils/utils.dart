@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:stadiums_administration/utils/message.dart';
 
 class Utils {
   static GlobalKey<ScaffoldMessengerState> messengerKey =
@@ -20,5 +22,25 @@ class Utils {
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
     return emailValid;
+  }
+
+  static void toast(String message) {
+    if (message.isNotEmpty) {
+      Color color;
+      switch (message) {
+        case Success.SUCCESS_REGISTER_FIRESTORE:
+          {
+            color = Colors.green;
+            break;
+          }
+        default:
+          color = Colors.red;
+      }
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          fontSize: 15,
+          backgroundColor: color);
+    }
   }
 }
