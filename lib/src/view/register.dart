@@ -18,7 +18,7 @@ late TextEditingController nameController;
 late TextEditingController userController;
 final formKey = GlobalKey<FormState>();
 
-class _ModuleRegisterState extends State<RegisterView> implements CollBack{
+class _ModuleRegisterState extends State<RegisterView> implements CollBack {
   RegisterViewModel registerViewModel = RegisterViewModel();
   final FocusNode myFocusNode = FocusNode();
   File? image;
@@ -61,7 +61,7 @@ class _ModuleRegisterState extends State<RegisterView> implements CollBack{
       print(e);
     }
   }
-  */ 
+  */
   var imageCurrent;
   late CollBack onchangedCallback = this;
 
@@ -140,17 +140,21 @@ class _ModuleRegisterState extends State<RegisterView> implements CollBack{
                         Column(children: [
                           image != null
                               ? Image?.file(image!, height: 250, width: 250)
-                              : Image.asset("assets/person_null.jpg",
-                                  width: 250, height: 250),
+                              : CircleAvatar(
+  backgroundImage: AssetImage('assets/person_null.jpg')
+,radius: 150.0,
+),
                           IconButton(
                             onPressed: () {
-                                setState(() {
-                                   registerViewModel
-                                  .pickImage(ImageSource.gallery)
-                                  .then((value) {
-                                imageCurrent = File(value!.path);
-                                registerViewModel.saveImage(value);
-                                }).whenComplete(() => setState(() {image = imageCurrent;}));
+                              setState(() {
+                                registerViewModel
+                                    .pickImage(ImageSource.gallery)
+                                    .then((value) {
+                                  imageCurrent = File(value!.path);
+                                  registerViewModel.saveImage(value);
+                                }).whenComplete(() => setState(() {
+                                          image = imageCurrent;
+                                        }));
                               });
                             },
                             icon: const Icon(Icons.add_a_photo_rounded),
@@ -164,15 +168,16 @@ class _ModuleRegisterState extends State<RegisterView> implements CollBack{
                             children: [
                               _btnRegresar(context),
                               const SizedBox(width: 10.0),
-                              _buttonRegisterNewUser(context, registerViewModel,onchangedCallback)
+                              _buttonRegisterNewUser(
+                                  context, registerViewModel, onchangedCallback)
                             ])
                       ]),
                 ))));
   }
-  
+
   @override
   responseMessage(String? rta) {
-    if(rta == null) return;
+    if (rta == null) return;
     Utils.toast(rta);
   }
 }
@@ -182,13 +187,14 @@ Widget _btnRegresar(BuildContext context) {
     onPressed: () {
       Navigator.popAndPushNamed(context, Routes.LOGIN);
     },
-    child: const Text('Crear Cuenta',
-        style: TextStyle(decoration: TextDecoration.underline)),
+    child: const Text('YA TENGO CUENTA',
+        style: TextStyle(decoration: TextDecoration.underline),
+        textScaleFactor: 1.2),
   );
 }
 
-Widget _buttonRegisterNewUser(
-    BuildContext context, RegisterViewModel registerModelView,CollBack onchangedCallback) {
+Widget _buttonRegisterNewUser(BuildContext context,
+    RegisterViewModel registerModelView, CollBack onchangedCallback) {
   return Container(
       margin: const EdgeInsets.all(25),
       child: ElevatedButton(
@@ -201,14 +207,15 @@ Widget _buttonRegisterNewUser(
               emailController.text.toString(),
               passwordController.text.toString()
             ];
-            var validResponse = registerModelView.validRegisterData(fields,onchangedCallback);
+
+            registerModelView.validRegisterData(fields, onchangedCallback);
           }
         },
-        child: Text('REGISTRAR', textScaleFactor: 1.3),
         style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
             padding: const EdgeInsets.only(
                 left: 40.0, right: 40.0, top: 22.0, bottom: 22.0)),
+        child: const Text('REGISTRAR', textScaleFactor: 1.3),
       ));
 }
 
@@ -218,6 +225,7 @@ Widget _inputName(RegisterViewModel registerViewModel) {
       child: TextFormField(
         controller: nameController,
         decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.person_add),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
@@ -237,6 +245,7 @@ Widget _inputUser(RegisterViewModel registerViewModel) {
       child: TextFormField(
         controller: userController,
         decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.perm_contact_cal),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
@@ -276,6 +285,7 @@ Widget _inputPassword(RegisterViewModel registerViewModel) {
       child: TextFormField(
           controller: passwordController,
           decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.password_sharp),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50.0),
               ),

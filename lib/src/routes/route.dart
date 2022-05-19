@@ -5,7 +5,3 @@ abstract class Routes {
   static const REGISTER = '/Rregister';
   static const HOME = '/home';
 }
-
-abstract class RetVal{
-  static int s =0  ;
-}

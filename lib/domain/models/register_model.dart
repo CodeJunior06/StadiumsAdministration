@@ -46,10 +46,11 @@ class RegisterModel implements FirebaseBase {
   @override
   Future<String?> registerFirebaseStorage(File image) async {
     try {
-      await FirebaseStorage.instance
+      TaskSnapshot up = await FirebaseStorage.instance
           .ref(uid)
           .child("${uid}_${DateTime.now()}")
           .putFile(image);
+          up.ref.getDownloadURL().then((value) => url= value);
       return Success.SUCCESS_SUBMIT_PHOTO;
     }  catch (e) {
       return e.toString();
