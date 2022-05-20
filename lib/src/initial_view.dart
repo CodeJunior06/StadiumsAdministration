@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stadiums_administration/src/routes/app_routes.dart';
+import 'package:stadiums_administration/src/routes/route.dart';
 import 'package:stadiums_administration/src/view/home.dart';
 import 'package:stadiums_administration/src/view/login.dart';
 
@@ -10,13 +11,10 @@ final navigatorKey = GlobalKey<NavigatorState>();
 
 class InitialPageView extends StatelessWidget {
   bool? isRegister;
-  InitialPageView({Key? key, this.isRegister}) : super(key: key);
 
+  InitialPageView({this.isRegister});
   @override
   Widget build(BuildContext context) {
-    if (isRegister != null) {
-      FirebaseAuth.instance.signOut();
-    }
     return MaterialApp(
         scaffoldMessengerKey: Utils.messengerKey,
         navigatorKey: navigatorKey,
@@ -28,6 +26,10 @@ class InitialPageView extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
+              if(isRegister==true&& isRegister!=null) {
+                isRegister = false;
+                return LoginView();
+              }
               return HomeView();
             } else {
               return LoginView();

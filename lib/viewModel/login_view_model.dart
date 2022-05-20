@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stadiums_administration/domain/iterator/callback.dart';
 import 'package:stadiums_administration/domain/models/login_model.dart';
 import 'package:stadiums_administration/utils/message.dart';
@@ -6,7 +6,7 @@ import 'package:stadiums_administration/utils/utils.dart';
 
 class LoginViewModel {
   late LoginModel loginModel;
-  late String? rta;
+  late String? rta="";
 
   String? accessLogin(
       String emailOrUser, String password, BuildContext context, CallBack a) {

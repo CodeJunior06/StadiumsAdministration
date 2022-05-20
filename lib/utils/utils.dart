@@ -28,7 +28,8 @@ class Utils {
     if (message.isNotEmpty) {
       Color color;
       switch (message) {
-        case Success.SUCCESS_REGISTER_FIRESTORE:
+        case Success.SUCCESS_REGISTER_FIRESTORE :
+        case Success.SUCCESS_LOGIN:
           {
             color = Colors.green;
             break;

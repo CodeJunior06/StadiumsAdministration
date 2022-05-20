@@ -12,11 +12,10 @@ class LoginView extends StatefulWidget {
 var emailOrUserController = TextEditingController();
 var passwordController = TextEditingController();
 var loginViewModel = LoginViewModel();
-final keyFormLogin = GlobalKey<FormState>();
 
 class _ModuleLoginState extends State<LoginView> implements CallBack {
   late CallBack onchangedCallback = this;
-
+  late GlobalKey<FormState> keyFormLogin ;
   @override
   void dispose() {
     emailOrUserController.dispose();
@@ -28,6 +27,7 @@ class _ModuleLoginState extends State<LoginView> implements CallBack {
   void initState() {
     emailOrUserController = TextEditingController();
     passwordController = TextEditingController();
+    keyFormLogin =GlobalKey<FormState>();
     super.initState();
   }
 
@@ -69,7 +69,8 @@ class _ModuleLoginState extends State<LoginView> implements CallBack {
                             children: [
                               _btnPageRegister(context),
                               const SizedBox(width: 5.0),
-                              _btnPageInitial(context, onchangedCallback),
+                              _btnPageInitial(
+                                  context, onchangedCallback, keyFormLogin),
                             ])
                       ]),
                 ))));
@@ -88,6 +89,7 @@ Widget _inputPassword() {
       child: TextFormField(
         controller: passwordController,
         decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.key_outlined),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
@@ -108,7 +110,7 @@ Widget _btnPageRegister(BuildContext context) {
         onPressed: () {
           Navigator.pushNamed(context, Routes.REGISTER);
         },
-        child: const Text('Crear Cuenta',
+        child: const Text('CREAR CUENTA',
             textScaleFactor: 1.2,
             style: TextStyle(
                 decoration: TextDecoration.underline,
@@ -116,15 +118,16 @@ Widget _btnPageRegister(BuildContext context) {
       ));
 }
 
-Widget _btnPageInitial(BuildContext context, CallBack onchangedCallback) {
+Widget _btnPageInitial(BuildContext context, CallBack onchangedCallback,
+    GlobalKey<FormState> key) {
   return Container(
       margin: const EdgeInsets.only(top: 50),
       child: Directionality(
           textDirection: TextDirection.rtl,
           child: ElevatedButton.icon(
-            icon: const Icon(Icons.next_plan_outlined),
+            icon: const Icon(Icons.arrow_back_sharp),
             onPressed: () {
-              final isValidForm = keyFormLogin.currentState!.validate();
+              final isValidForm = key.currentState!.validate();
               if (isValidForm) {
                 String? validResponse = loginViewModel.accessLogin(
                     emailOrUserController.text.trim().toString(),
@@ -155,6 +158,7 @@ Widget _inputUserOrEmail() {
       child: TextFormField(
           controller: emailOrUserController,
           decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.email_rounded),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50.0),
               ),

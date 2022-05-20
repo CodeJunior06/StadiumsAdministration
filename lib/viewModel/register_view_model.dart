@@ -1,12 +1,9 @@
 import 'dart:io';
-
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stadiums_administration/domain/POJO/model_register.dart';
 import 'package:stadiums_administration/domain/iterator/callback.dart';
 import 'package:stadiums_administration/domain/models/register_model.dart';
-import 'package:stadiums_administration/src/view/login.dart';
 import 'package:stadiums_administration/utils/message.dart';
 import 'package:stadiums_administration/utils/utils.dart';
 
@@ -22,6 +19,7 @@ class RegisterViewModel {
         .checkIn(listField.elementAt(2), listField.elementAt(3))
         .then((value) {
       if (identical(value, Success.SUCCESS_REGISTER)) {
+        
         RegisterUser registerUser = RegisterUser(
             null,
             listField.elementAt(0),

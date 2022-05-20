@@ -20,7 +20,7 @@ class RegisterModel implements FirebaseBase {
         if (value != null) {
           uid = value.user!.uid;
         }
-      });
+      }).whenComplete(() => FirebaseAuth.instance.signOut());
       return Success.SUCCESS_REGISTER;
     } on FirebaseAuthException catch (e) {
       return e.message.toString();

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:stadiums_administration/src/initial_view.dart';
 import 'package:stadiums_administration/src/routes/route.dart';
 import 'package:stadiums_administration/src/view/home.dart';
 import 'package:stadiums_administration/src/view/login.dart';

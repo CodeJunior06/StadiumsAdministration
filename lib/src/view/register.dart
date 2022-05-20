@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:stadiums_administration/domain/iterator/callback.dart';
 import 'package:stadiums_administration/src/initial_view.dart';
 import 'package:stadiums_administration/src/routes/route.dart';
-import 'package:stadiums_administration/src/view/login.dart';
+import 'package:stadiums_administration/src/view/home.dart';
 import 'package:stadiums_administration/utils/message.dart';
 import 'package:stadiums_administration/utils/utils.dart';
 import 'package:stadiums_administration/viewModel/register_view_model.dart';
@@ -19,13 +19,14 @@ late TextEditingController emailController;
 late TextEditingController passwordController;
 late TextEditingController nameController;
 late TextEditingController userController;
-final formKey = GlobalKey<FormState>();
+
 int n400 = 400;
 
 class _ModuleRegisterState extends State<RegisterView> implements CallBack {
   RegisterViewModel registerViewModel = RegisterViewModel();
   final FocusNode myFocusNode = FocusNode();
   File? image;
+  final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -56,7 +57,7 @@ class _ModuleRegisterState extends State<RegisterView> implements CallBack {
             child: Form(
                 key: formKey,
                 child: Container(
-                  margin: const EdgeInsets.only(left: 50, right: 50, top: 50),
+                  margin: const EdgeInsets.all(50.0),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -154,9 +155,9 @@ class _ModuleRegisterState extends State<RegisterView> implements CallBack {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               _btnRegresar(context),
-                              const SizedBox(width: 10.0),
+                              const SizedBox(width: 20.0),
                               _buttonRegisterNewUser(
-                                  context, registerViewModel, onchangedCallback)
+                                  context, registerViewModel, onchangedCallback,formKey)
                             ])
                       ]),
                 ))));
@@ -168,12 +169,9 @@ class _ModuleRegisterState extends State<RegisterView> implements CallBack {
     switch (rta) {
       case Success.SUCCESS_REGISTER_FIRESTORE:
         //registerViewModel.signOff();
-        bool isRegister = true;
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => InitialPageView(isRegister: isRegister)),
-        );
+        Utils.toast(rta);
+        Navigator.pop(context);
+
         break;
       default:
         Utils.toast(rta);
@@ -195,13 +193,13 @@ Widget _btnRegresar(BuildContext context) {
 }
 
 Widget _buttonRegisterNewUser(BuildContext context,
-    RegisterViewModel registerViewModel, CallBack onchangedCallback) {
+    RegisterViewModel registerViewModel, CallBack onchangedCallback,GlobalKey<FormState> key) {
   return Container(
-      margin: const EdgeInsets.all(25),
+      margin: const EdgeInsets.symmetric(vertical:30),
       child: ElevatedButton.icon(
         icon: const Icon(Icons.save),
         onPressed: () {
-          final isValidForm = formKey.currentState!.validate();
+          final isValidForm = key.currentState!.validate();
           if (isValidForm) {
             List<String> fields = [
               nameController.text.toString(),
@@ -229,13 +227,13 @@ Widget _inputName(RegisterViewModel registerViewModel) {
       child: TextFormField(
         controller: nameController,
         decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.person_add),
+            prefixIcon: const Icon(Icons.perm_contact_cal,color:Color.fromRGBO(0, 191, 165, 1)),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
             filled: true,
             hintStyle: TextStyle(color: Colors.grey[n400]),
-            hintText: "Name and surname please",
+            hintText: "name and surname please",
             fillColor: Colors.white70),
         validator: (value) {
           return registerViewModel.validField(value, false, 5);
@@ -249,7 +247,7 @@ Widget _inputUser(RegisterViewModel registerViewModel) {
       child: TextFormField(
         controller: userController,
         decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.perm_contact_cal),
+            prefixIcon: const Icon(Icons.person_add,color:Color.fromRGBO(0, 191, 165, 1)),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
@@ -269,7 +267,7 @@ Widget _inputEmail(RegisterViewModel registerViewModel) {
       child: TextFormField(
         controller: emailController,
         decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.email_rounded),
+            prefixIcon: const Icon(Icons.email_rounded,color:Color.fromRGBO(0, 191, 165, 1)),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
@@ -289,7 +287,7 @@ Widget _inputPassword(RegisterViewModel registerViewModel) {
       child: TextFormField(
           controller: passwordController,
           decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.password_sharp),
+              prefixIcon: const Icon(Icons.key_outlined,color:Color.fromRGBO(0, 191, 165, 1) ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50.0),
               ),
