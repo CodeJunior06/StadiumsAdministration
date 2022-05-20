@@ -50,10 +50,15 @@ class RegisterModel implements FirebaseBase {
           .ref(uid)
           .child("${uid}_${DateTime.now()}")
           .putFile(image);
-          up.ref.getDownloadURL().then((value) => url= value);
+      await up.ref.getDownloadURL().then((value) => url = value);
       return Success.SUCCESS_SUBMIT_PHOTO;
-    }  catch (e) {
+    } catch (e) {
       return e.toString();
     }
+  }
+
+  @override
+  void signOffFirebase() {
+    FirebaseAuth.instance.signOut();
   }
 }

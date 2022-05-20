@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stadiums_administration/domain/POJO/model_register.dart';
+import 'package:stadiums_administration/domain/iterator/callback.dart';
 import 'package:stadiums_administration/domain/models/register_model.dart';
 import 'package:stadiums_administration/src/view/login.dart';
 import 'package:stadiums_administration/utils/message.dart';
@@ -13,10 +14,10 @@ class RegisterViewModel {
   late File imageUpload;
   late RegisterModel registerModel;
 
-  String validRegisterData(List<String> listField, CollBack onchangedCallback) {
+  String? validRegisterData(
+      List<String> listField, CallBack onchangedCallback) {
     registerModel = RegisterModel();
     String? response;
-    TaskSnapshot? responseStorage;
     registerModel
         .checkIn(listField.elementAt(2), listField.elementAt(3))
         .then((value) {
@@ -47,7 +48,7 @@ class RegisterViewModel {
       }
     }).whenComplete(() => onchangedCallback.responseMessage(response));
 
-    return "";
+    return response;
   }
 
   dynamic validField(String? value, bool isEmail, int numMin) {
@@ -79,5 +80,9 @@ class RegisterViewModel {
 
   saveImage(File image) {
     imageUpload = image;
+  }
+
+  void signOff() {
+    registerModel.signOffFirebase();
   }
 }

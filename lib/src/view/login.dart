@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stadiums_administration/domain/iterator/callback.dart';
 import 'package:stadiums_administration/src/routes/route.dart';
 import 'package:stadiums_administration/utils/utils.dart';
 import 'package:stadiums_administration/viewModel/login_view_model.dart';
@@ -8,17 +9,13 @@ class LoginView extends StatefulWidget {
   State<StatefulWidget> createState() => _ModuleLoginState();
 }
 
-abstract class CollBack {
-  responseMessage(String? rta);
-}
-
 var emailOrUserController = TextEditingController();
 var passwordController = TextEditingController();
 var loginViewModel = LoginViewModel();
 final keyFormLogin = GlobalKey<FormState>();
 
-class _ModuleLoginState extends State<LoginView> implements CollBack {
-  late CollBack onchangedCallback = this;
+class _ModuleLoginState extends State<LoginView> implements CallBack {
+  late CallBack onchangedCallback = this;
 
   @override
   void dispose() {
@@ -67,12 +64,13 @@ class _ModuleLoginState extends State<LoginView> implements CollBack {
                           ),
                           _inputPassword(),
                         ]),
-                        Row(mainAxisAlignment: MainAxisAlignment.end,children: [
-                          
-                          _btnPageRegister(context),
-                          const SizedBox(width: 5.0),
-                          _btnPageInitial(context, onchangedCallback),
-                        ])
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              _btnPageRegister(context),
+                              const SizedBox(width: 5.0),
+                              _btnPageInitial(context, onchangedCallback),
+                            ])
                       ]),
                 ))));
   }
@@ -104,42 +102,51 @@ Widget _inputPassword() {
 }
 
 Widget _btnPageRegister(BuildContext context) {
-  return TextButton(
-    onPressed: () {
-      Navigator.pushNamed(context, Routes.REGISTER);
-    },
-    child: const Text('Crear Cuenta',
-        style: TextStyle(decoration: TextDecoration.underline)),
-  );
+  return Container(
+      margin: const EdgeInsets.only(top: 50, right: 20),
+      child: TextButton(
+        onPressed: () {
+          Navigator.pushNamed(context, Routes.REGISTER);
+        },
+        child: const Text('Crear Cuenta',
+            textScaleFactor: 1.2,
+            style: TextStyle(
+                decoration: TextDecoration.underline,
+                color: Color.fromRGBO(0, 191, 165, 1))),
+      ));
 }
 
-Widget _btnPageInitial(BuildContext context, CollBack onchangedCallback) {
+Widget _btnPageInitial(BuildContext context, CallBack onchangedCallback) {
   return Container(
-      margin: const EdgeInsets.all(25),
-      child: ElevatedButton(
-        onPressed: () {
-          final isValidForm = keyFormLogin.currentState!.validate();
-          if (isValidForm) {
-            String? validResponse = loginViewModel.accessLogin(
-                emailOrUserController.text.trim().toString(),
-                passwordController.text.trim().toString(),
-                context,
-                onchangedCallback);
+      margin: const EdgeInsets.only(top: 50),
+      child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: ElevatedButton.icon(
+            icon: const Icon(Icons.next_plan_outlined),
+            onPressed: () {
+              final isValidForm = keyFormLogin.currentState!.validate();
+              if (isValidForm) {
+                String? validResponse = loginViewModel.accessLogin(
+                    emailOrUserController.text.trim().toString(),
+                    passwordController.text.trim().toString(),
+                    context,
+                    onchangedCallback);
 
-            if (validResponse != null && validResponse.isNotEmpty) {
-              var response = loginViewModel.validResponse(validResponse);
-              if (response) {
-                Navigator.popAndPushNamed(context, Routes.HOME);
+                if (validResponse != null && validResponse.isNotEmpty) {
+                  var response = loginViewModel.validResponse(validResponse);
+                  if (response) {
+                    Navigator.popAndPushNamed(context, Routes.HOME);
+                  }
+                }
               }
-            }
-          }
-        },
-        style: ElevatedButton.styleFrom(
-            shape: const StadiumBorder(),
-            padding: const EdgeInsets.only(
-                left: 40.0, right: 40.0, top: 22.0, bottom: 22.0)),
-        child: const Text('INGRESAR', textScaleFactor: 1.3),
-      ));
+            },
+            style: ElevatedButton.styleFrom(
+                primary: const Color.fromRGBO(0, 191, 165, 1),
+                shape: const StadiumBorder(),
+                padding: const EdgeInsets.only(
+                    left: 40.0, right: 40.0, top: 22.0, bottom: 22.0)),
+            label: const Text('INGRESAR', textScaleFactor: 1.3),
+          )));
 }
 
 Widget _inputUserOrEmail() {
