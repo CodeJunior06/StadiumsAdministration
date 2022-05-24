@@ -156,8 +156,8 @@ class _ModuleRegisterState extends State<RegisterView> implements CallBack {
                             children: [
                               _btnRegresar(context),
                               const SizedBox(width: 20.0),
-                              _buttonRegisterNewUser(
-                                  context, registerViewModel, onchangedCallback,formKey)
+                              _buttonRegisterNewUser(context, registerViewModel,
+                                  onchangedCallback, formKey)
                             ])
                       ]),
                 ))));
@@ -192,10 +192,13 @@ Widget _btnRegresar(BuildContext context) {
   );
 }
 
-Widget _buttonRegisterNewUser(BuildContext context,
-    RegisterViewModel registerViewModel, CallBack onchangedCallback,GlobalKey<FormState> key) {
+Widget _buttonRegisterNewUser(
+    BuildContext context,
+    RegisterViewModel registerViewModel,
+    CallBack onchangedCallback,
+    GlobalKey<FormState> key) {
   return Container(
-      margin: const EdgeInsets.symmetric(vertical:30),
+      margin: const EdgeInsets.symmetric(vertical: 30),
       child: ElevatedButton.icon(
         icon: const Icon(Icons.save),
         onPressed: () {
@@ -212,7 +215,7 @@ Widget _buttonRegisterNewUser(BuildContext context,
           }
         },
         style: ElevatedButton.styleFrom(
-            primary: Color.fromRGBO(0, 191, 165, 1),
+            primary: const Color.fromRGBO(0, 191, 165, 1),
             elevation: 10,
             shape: const StadiumBorder(),
             padding: const EdgeInsets.only(
@@ -227,7 +230,8 @@ Widget _inputName(RegisterViewModel registerViewModel) {
       child: TextFormField(
         controller: nameController,
         decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.perm_contact_cal,color:Color.fromRGBO(0, 191, 165, 1)),
+            prefixIcon: const Icon(Icons.perm_contact_cal,
+                color: Color.fromRGBO(0, 191, 165, 1)),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
@@ -247,7 +251,8 @@ Widget _inputUser(RegisterViewModel registerViewModel) {
       child: TextFormField(
         controller: userController,
         decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.person_add,color:Color.fromRGBO(0, 191, 165, 1)),
+            prefixIcon: const Icon(Icons.person_add,
+                color: Color.fromRGBO(0, 191, 165, 1)),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
@@ -267,7 +272,8 @@ Widget _inputEmail(RegisterViewModel registerViewModel) {
       child: TextFormField(
         controller: emailController,
         decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.email_rounded,color:Color.fromRGBO(0, 191, 165, 1)),
+            prefixIcon: const Icon(Icons.email_rounded,
+                color: Color.fromRGBO(0, 191, 165, 1)),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
@@ -287,7 +293,8 @@ Widget _inputPassword(RegisterViewModel registerViewModel) {
       child: TextFormField(
           controller: passwordController,
           decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.key_outlined,color:Color.fromRGBO(0, 191, 165, 1) ),
+              prefixIcon: const Icon(Icons.key_outlined,
+                  color: Color.fromRGBO(0, 191, 165, 1)),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50.0),
               ),

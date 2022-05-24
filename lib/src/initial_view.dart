@@ -18,6 +18,7 @@ class InitialPageView extends StatelessWidget {
     return MaterialApp(
         scaffoldMessengerKey: Utils.messengerKey,
         navigatorKey: navigatorKey,
+        initialRoute: Routes.SPLASH,
         title: 'Material App',
         routes: getAppRoutes(),
         home: StreamBuilder<User?>(
@@ -26,7 +27,7 @@ class InitialPageView extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
-              if(isRegister==true&& isRegister!=null) {
+              if (isRegister == true && isRegister != null) {
                 isRegister = false;
                 return LoginView();
               }

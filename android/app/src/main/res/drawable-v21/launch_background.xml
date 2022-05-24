@@ -8,5 +8,5 @@
         <bitmap
             android:gravity="center"
             android:src="@mipmap/splash" />
-    </item> 
+    </item>
 </layer-list>
