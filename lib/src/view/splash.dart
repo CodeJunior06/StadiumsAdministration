@@ -11,28 +11,47 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [logoAnimation(), byAuthor()],
-    );
+    return Container(
+        color: Colors.blueAccent,
+        child: Column(
+          verticalDirection: VerticalDirection.down,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [logoAnimation(), byAuthor()],
+        ));
   }
 }
 
 Widget byAuthor() {
-  return const Center(
-      child: Text(
-    "Santiago Rueda - Mobile Developer",
-    style: TextStyle(
-        color: Colors.white, decoration: TextDecoration.none, fontSize: 22),
-  ));
+  return Container(
+      color: Colors.pink,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Text(
+            "Santiago Rueda - Mobile Developer",
+            style: TextStyle(
+                color: Colors.white,
+                decoration: TextDecoration.none,
+                fontSize: 22),
+          )
+        ],
+      ));
 }
 
 Widget logoAnimation() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Lottie.asset('assets/lottie/sportSplash.json', width: 100, height: 100),
-      Lottie.asset('assets/lottie/sportSplash.json', width: 100, height: 100),
-      Lottie.asset('assets/lottie/sportSplash.json', width: 100, height: 100),
-    ],
-  );
+  return Container(
+      color: Colors.yellow,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Lottie.asset('assets/lottie/sportSplash.json',
+              width: 100, height: 100),
+          Lottie.asset('assets/lottie/sportSplash.json',
+              width: 100, height: 100),
+          Lottie.asset('assets/lottie/sportSplash.json',
+              width: 100, height: 100),
+        ],
+      ));
 }
