@@ -11,27 +11,27 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.blueAccent,
-        child: Column(
-          verticalDirection: VerticalDirection.down,
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [logoAnimation(), byAuthor()],
-        ));
+    return Scaffold(
+        body: Container(
+            child: Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.max,
+      children: [logoAnimation(), byAuthor()],
+    )));
   }
 }
 
 Widget byAuthor() {
   return Container(
-      color: Colors.pink,
+      width: double.infinity,
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        children: [
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: const [
           Text(
             "Santiago Rueda - Mobile Developer",
             style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 decoration: TextDecoration.none,
                 fontSize: 22),
           )
@@ -40,18 +40,23 @@ Widget byAuthor() {
 }
 
 Widget logoAnimation() {
-  return Container(
-      color: Colors.yellow,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset('assets/lottie/sportSplash.json',
-              width: 100, height: 100),
-          Lottie.asset('assets/lottie/sportSplash.json',
-              width: 100, height: 100),
-          Lottie.asset('assets/lottie/sportSplash.json',
-              width: 100, height: 100),
-        ],
-      ));
+  return Expanded(
+      child: Center(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+    Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Lottie.asset('assets/lottie/sportSplash.json', width: 65, height: 65),
+        const SizedBox(width: 10),
+        Lottie.asset('assets/lottie/sportSplash.json', width: 65, height: 65),
+        const SizedBox(width: 10),
+        Lottie.asset('assets/lottie/sportSplash.json', width: 65, height: 65),
+      ],
+    ),
+    const SizedBox(height: 15),
+    const Center(
+      child: Text("CARGANDO . . ."),
+    )
+  ])));
 }
