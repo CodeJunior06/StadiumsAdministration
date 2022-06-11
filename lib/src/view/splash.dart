@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:stadiums_administration/src/routes/route.dart';
 
 class SplashView extends StatefulWidget {
   SplashView({Key? key}) : super(key: key);
@@ -9,6 +10,16 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 3), () {
+      // 5s over, navigate to a new page
+      Navigator.restorablePushReplacementNamed(context,Routes.LOGIN);
+    });
+    super.initState();
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,21 +33,17 @@ class _SplashViewState extends State<SplashView> {
 }
 
 Widget byAuthor() {
-  return Container(
-      width: double.infinity,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: const [
-          Text(
-            "Santiago Rueda - Mobile Developer",
-            style: TextStyle(
-                color: Colors.black,
-                decoration: TextDecoration.none,
-                fontSize: 22),
-          )
-        ],
-      ));
+  return Column(
+    mainAxisSize: MainAxisSize.max,
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: const [
+      Text(
+        "Santiago Rueda - Mobile Developer",
+        style: TextStyle(
+            color: Colors.black, decoration: TextDecoration.none, fontSize: 22),
+      )
+    ],
+  );
 }
 
 Widget logoAnimation() {

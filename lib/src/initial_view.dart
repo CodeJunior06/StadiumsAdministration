@@ -4,6 +4,7 @@ import 'package:stadiums_administration/src/routes/app_routes.dart';
 import 'package:stadiums_administration/src/routes/route.dart';
 import 'package:stadiums_administration/src/view/home.dart';
 import 'package:stadiums_administration/src/view/login.dart';
+import 'package:stadiums_administration/src/view/splash.dart';
 
 import '../utils/utils.dart';
 
@@ -18,7 +19,6 @@ class InitialPageView extends StatelessWidget {
     return MaterialApp(
         scaffoldMessengerKey: Utils.messengerKey,
         navigatorKey: navigatorKey,
-        initialRoute: Routes.SPLASH,
         title: 'Material App',
         routes: getAppRoutes(),
         home: StreamBuilder<User?>(
@@ -33,7 +33,7 @@ class InitialPageView extends StatelessWidget {
               }
               return HomeView();
             } else {
-              return LoginView();
+              return SplashView();
             }
           },
         ));
